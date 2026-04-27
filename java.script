@@ -1,0 +1,44 @@
+<script>
+document.getElementById('hamburger').onclick = () => {
+    document.getElementById('navLinks').classList.toggle('active');
+};
+
+window.onscroll = () => {
+    const navbar = document.getElementById('navbar');
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+    
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        hero.style.transform = `translateY(${window.scrollY * 0.5}px)`;
+    }
+};
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.onclick = e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+});
+
+document.querySelector('.contact-form').onsubmit = e => {
+    e.preventDefault();
+    alert('Thank you! 🌸 Rushi will reply soon!');
+    e.target.reset();
+};
+
+// Intersection Observer for fade-in animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => {
+    observer.observe(el);
+});
+</script>
